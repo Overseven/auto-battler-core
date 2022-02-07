@@ -1,1 +1,1 @@
-# auto-battler
+# auto-battler-core
