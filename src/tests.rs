@@ -1,3 +1,4 @@
+#[cfg(test)]
 use crate::{create_game, process_full_game, Characteristics, InitGameState, Nft, Player, Winner};
 
 #[cfg(test)]
