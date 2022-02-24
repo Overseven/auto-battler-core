@@ -1,5 +1,4 @@
-use crate::{ActionState, GameContext, Skill};
-use {Player, TurnState};
+use crate::{ActionState, GameContext, Player, Skill, TurnState};
 
 #[derive(Copy, Clone, Eq, PartialEq)]
 pub enum ActionType {
@@ -46,9 +45,9 @@ pub fn get_last_players_state(ctx: &GameContext, current_turn: &TurnState) -> [V
     ctx.players_initial.clone()
 }
 
-pub fn put_action_to_turn(action: ActionState, ctx: &mut GameContext) {
-    let turns_count = ctx.turns.len();
-    if let Some(last_turn) = ctx.turns.get_mut(turns_count) {
-        last_turn.actions.push(action);
-    }
-}
+// pub fn put_action_to_turn(action: ActionState, ctx: &mut GameContext) {
+//     let turns_count = ctx.turns.len();
+//     if let Some(last_turn) = ctx.turns.get_mut(turns_count) {
+//         last_turn.actions.push(action);
+//     }
+// }

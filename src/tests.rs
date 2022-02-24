@@ -1,8 +1,4 @@
-use crate::randomizer::Randomizer;
-use Winner;
-use {create_game, process_full_game};
-use {Characteristics, Nft};
-use {InitGameState, Player};
+use crate::{create_game, process_full_game, Characteristics, InitGameState, Nft, Player, Winner};
 
 #[cfg(test)]
 #[test]

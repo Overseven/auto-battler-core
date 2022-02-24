@@ -1,8 +1,6 @@
+use crate::action::cases::common::get_last_players_state;
 use crate::action::common::Action;
-use crate::{ActionState, GameContext, Randomizer};
-use action::cases::common::get_last_players_state;
-use {ActionType, Player};
-use {Nft, TurnState};
+use crate::{ActionState, ActionType, GameContext, Nft, Player, Randomizer, TurnState};
 
 #[derive(Clone)]
 pub(crate) struct Punch {}

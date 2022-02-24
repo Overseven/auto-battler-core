@@ -1,7 +1,5 @@
 use crate::action::cases::common::ActionType;
 
-pub type Seed = [u8; 32];
-
 #[derive(Clone, Copy, Eq, PartialEq)]
 pub enum Winner {
     Nobody,
