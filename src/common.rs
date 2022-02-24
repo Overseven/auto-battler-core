@@ -1,6 +1,6 @@
 use crate::action::cases::common::ActionType;
 
-#[derive(Clone, Copy, Eq, PartialEq)]
+#[derive(Clone, Copy, Eq, PartialEq, Debug)]
 pub enum Winner {
     Nobody,
     Command(u8),
