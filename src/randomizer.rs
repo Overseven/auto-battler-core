@@ -1,7 +1,7 @@
-pub type Seed = [u8; 32];
+// pub type Seed = Vec<u8>;
 
 pub struct Randomizer {
-    pub seed: Seed,
+    pub seed: Vec<u8>,
     pub index: u8,
 }
 
