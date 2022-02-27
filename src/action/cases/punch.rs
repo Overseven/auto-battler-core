@@ -1,6 +1,8 @@
 use crate::action::cases::common::get_last_players_state;
 use crate::action::common::Action;
 use crate::{ActionState, ActionType, GameContext, Nft, Player, Randomizer, TurnState};
+use sp_std::vec;
+use sp_std::vec::Vec;
 
 #[derive(Clone)]
 pub(crate) struct Punch {}

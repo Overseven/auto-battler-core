@@ -1,12 +1,15 @@
+#![no_std]
+
 pub mod action;
 pub mod common;
 pub mod randomizer;
-mod tests;
 
 use crate::action::cases::common::{get_last_action_state, ActionType};
 use crate::action::cases::{action_can_be_processed, process_action};
 use crate::randomizer::Randomizer;
 pub use common::*;
+use sp_std::vec;
+use sp_std::vec::Vec;
 
 pub fn create_game(params: InitGameState) -> (GameContext, Randomizer) {
     let ctx = GameContext {

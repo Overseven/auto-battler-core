@@ -1,5 +1,6 @@
 use crate::common::*;
 use crate::Randomizer;
+use sp_std::vec::Vec;
 
 pub(crate) trait Action: Clone {
     fn can_be_processed(

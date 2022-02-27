@@ -2,7 +2,8 @@ use crate::action::cases::common::find_skill;
 use crate::action::cases::common::ActionType::HealAction;
 use crate::action::common::Action;
 use crate::{ActionState, GameContext, Randomizer, TurnState};
-
+use sp_std::vec;
+use sp_std::vec::Vec;
 // 1 level of heal skill == +10 HP per use
 pub const HP_PER_LEVEL: u64 = 10;
 

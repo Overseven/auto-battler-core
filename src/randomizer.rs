@@ -1,4 +1,4 @@
-// pub type Seed = Vec<u8>;
+use sp_std::vec::Vec;
 
 pub struct Randomizer {
     pub seed: Vec<u8>,

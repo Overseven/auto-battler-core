@@ -1,4 +1,5 @@
 use crate::{ActionState, GameContext, Player, Skill, TurnState};
+use sp_std::vec::Vec;
 
 #[derive(Copy, Clone, Eq, PartialEq)]
 pub enum ActionType {

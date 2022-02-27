@@ -2,8 +2,8 @@ use crate::action::cases::common::ActionType::{self, *};
 use crate::action::cases::heal::Heal;
 use crate::action::cases::punch::Punch;
 use crate::action::common::Action;
-
 use crate::{ActionState, GameContext, Randomizer, TurnState, Winner};
+use sp_std::vec::Vec;
 
 pub mod common;
 pub mod heal;
