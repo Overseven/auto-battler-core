@@ -1,7 +1,9 @@
 use crate::{ActionState, GameContext, Player, Skill, TurnState};
 use serde::{Deserialize, Serialize};
 use sp_std::vec::Vec;
+use wasm_bindgen::prelude::*;
 
+#[wasm_bindgen]
 #[derive(Copy, Clone, Eq, PartialEq, Serialize, Deserialize)]
 pub enum ActionType {
     PunchAction = 1,
