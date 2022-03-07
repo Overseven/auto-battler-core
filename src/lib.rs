@@ -6,7 +6,7 @@ pub mod randomizer;
 
 use crate::action::cases::common::{get_last_action_state, ActionType};
 use crate::action::cases::{action_can_be_processed, process_action};
-use crate::randomizer::Randomizer;
+pub use crate::randomizer::Randomizer;
 pub use common::*;
 use sp_std::vec;
 use sp_std::vec::Vec;
@@ -68,8 +68,8 @@ pub fn process_full_game(ctx: &mut GameContext, randomizer: &mut Randomizer) -> 
     }
     // Timeout
     let winner = match get_command_with_more_total_hp(ctx) {
-        None => Some(Winner::Nobody),
-        Some(x) => Some(Winner::Command(x)),
+        None => Some(Winner { command: None }),
+        Some(x) => Some(Winner { command: Some(x) }),
     };
 
     return GameResult {

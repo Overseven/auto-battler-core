@@ -1,7 +1,8 @@
 use crate::{ActionState, GameContext, Player, Skill, TurnState};
+use serde::{Deserialize, Serialize};
 use sp_std::vec::Vec;
 
-#[derive(Copy, Clone, Eq, PartialEq)]
+#[derive(Copy, Clone, Eq, PartialEq, Serialize, Deserialize)]
 pub enum ActionType {
     PunchAction = 1,
     HealAction = 2,

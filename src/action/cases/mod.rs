@@ -60,7 +60,9 @@ pub fn check_winner(last_actions: &Vec<ActionState>) -> Option<Winner> {
             .collect();
 
         if non_zero.len() == 1 {
-            return Some(Winner::Command(non_zero.first().unwrap().0 as u8));
+            return Some(Winner {
+                command: Some(non_zero.first().unwrap().0 as u8),
+            });
         }
     }
     None
