@@ -106,7 +106,7 @@ impl GameContext {
 }
 
 #[wasm_bindgen]
-#[derive(Clone, Serialize, Deserialize)]
+#[derive(Clone, Copy, Serialize, Deserialize)]
 pub struct GameResult {
     pub winner: Option<Winner>,
     pub is_timeout: bool,
