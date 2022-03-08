@@ -76,7 +76,7 @@ pub struct InitGameState {
 }
 
 #[wasm_bindgen]
-#[derive(Serialize, Deserialize)]
+#[derive(Clone, Serialize, Deserialize)]
 pub struct GameContext {
     pub max_turns: u64,
     pub max_actions_per_turn: u8,
