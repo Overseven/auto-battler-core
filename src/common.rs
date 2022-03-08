@@ -1,9 +1,11 @@
 use crate::action::cases::common::ActionType;
 use js_sys::Array;
 use serde::{Deserialize, Serialize};
+use sp_std::vec;
 use sp_std::vec::Vec;
 use wasm_bindgen::prelude::*;
 
+#[wasm_bindgen]
 #[derive(Clone, Copy, Eq, PartialEq, Debug, Serialize, Deserialize)]
 pub struct Winner {
     pub command: Option<u8>,
@@ -45,7 +47,6 @@ impl Nft {
             .iter()
             .map(|x| JsValue::from_serde(x).unwrap())
             .collect()
-        // self.skills.clone().into()
     }
 }
 
@@ -93,38 +94,79 @@ impl GameContext {
             .iter()
             .map(|x| JsValue::from_serde(x).unwrap())
             .collect()
-        // self.players_initial.iter().map(JsValue::from).collect()
-        // return JsValue::from(self.players_initial.clone());
     }
+
     #[wasm_bindgen(getter)]
     pub fn turns(&self) -> Array {
         self.turns
             .iter()
             .map(|x| JsValue::from_serde(x).unwrap())
             .collect()
-        // self.turns.iter().map(JsValue::from).collect()
-        // return JsValue::from(self.turns.clone());
     }
 }
 
+#[wasm_bindgen]
 #[derive(Clone, Serialize, Deserialize)]
 pub struct GameResult {
     pub winner: Option<Winner>,
     pub is_timeout: bool,
 }
 
+#[wasm_bindgen]
 #[derive(Clone, Serialize, Deserialize)]
 pub struct ActionState {
+    #[wasm_bindgen(skip)]
     pub players: [Vec<Player>; 2],
     pub action: ActionType,
+    #[wasm_bindgen(skip)]
     pub origin: (u8, u8), // command_id, player_id
 }
 
+#[wasm_bindgen]
+impl ActionState {
+    #[wasm_bindgen(getter)]
+    pub fn players(&self) -> Array {
+        self.players
+            .iter()
+            .map(|x| JsValue::from_serde(x).unwrap())
+            .collect()
+    }
+    #[wasm_bindgen(getter)]
+    pub fn origin(&self) -> Array {
+        vec![self.origin.0, self.origin.1]
+            .iter()
+            .map(|x| JsValue::from_serde(x).unwrap())
+            .collect()
+    }
+}
+
+#[wasm_bindgen]
 #[derive(Clone, Serialize, Deserialize)]
 pub struct TurnState {
     pub command_turn: u8,
+    #[wasm_bindgen(skip)]
     pub player_turn: [u8; 2],
+    #[wasm_bindgen(skip)]
     pub actions: Vec<ActionState>,
     pub is_overflow: bool,
     pub winner: Option<Winner>,
+}
+
+#[wasm_bindgen]
+impl TurnState {
+    #[wasm_bindgen(getter)]
+    pub fn player_turn(&self) -> Array {
+        self.player_turn
+            .iter()
+            .map(|x| JsValue::from_serde(x).unwrap())
+            .collect()
+    }
+
+    #[wasm_bindgen(getter)]
+    pub fn actions(&self) -> Array {
+        self.actions
+            .iter()
+            .map(|x| JsValue::from_serde(x).unwrap())
+            .collect()
+    }
 }
