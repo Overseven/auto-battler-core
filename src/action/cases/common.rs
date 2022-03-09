@@ -1,10 +1,13 @@
 use crate::{ActionState, GameContext, Player, Skill, TurnState};
+#[cfg(feature = "std")]
 use serde::{Deserialize, Serialize};
 use sp_std::vec::Vec;
+#[cfg(feature = "std")]
 use wasm_bindgen::prelude::*;
 
-#[wasm_bindgen]
-#[derive(Copy, Clone, Eq, PartialEq, Serialize, Deserialize)]
+#[cfg_attr(feature = "std", wasm_bindgen)]
+#[cfg_attr(feature = "std", derive(Serialize, Deserialize))]
+#[derive(Copy, Clone, Eq, PartialEq)]
 pub enum ActionType {
     PunchAction = 1,
     HealAction = 2,

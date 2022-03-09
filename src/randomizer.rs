@@ -1,8 +1,18 @@
+#[cfg(feature = "std")]
 use js_sys::Array;
+#[cfg(feature = "std")]
 use serde::{Deserialize, Serialize};
 use sp_std::vec::Vec;
+#[cfg(feature = "std")]
 use wasm_bindgen::prelude::*;
 
+#[cfg(not(feature = "std"))]
+pub struct Randomizer {
+    pub seed: Vec<u8>,
+    pub index: u8,
+}
+
+#[cfg(feature = "std")]
 #[wasm_bindgen]
 #[derive(Serialize, Deserialize)]
 pub struct Randomizer {
@@ -11,9 +21,7 @@ pub struct Randomizer {
     pub index: u8,
 }
 
-#[wasm_bindgen]
 impl Randomizer {
-    #[wasm_bindgen(skip)]
     pub fn random(&mut self, max_value: u32) -> u32 {
         let mut result = 0_u32;
         for _ in 0..4 {
@@ -27,6 +35,11 @@ impl Randomizer {
 
         result % max_value
     }
+}
+
+#[cfg(feature = "std")]
+#[wasm_bindgen]
+impl Randomizer {
     #[wasm_bindgen(getter)]
     pub fn seed(&self) -> Array {
         self.seed
