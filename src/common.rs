@@ -93,14 +93,6 @@ impl Player {
     }
 }
 
-#[derive(Clone)]
-pub struct InitGameState {
-    pub players: [Vec<Player>; 2],
-    pub max_turns: u64,
-    pub max_actions_per_turn: u8,
-    pub seed: Vec<u8>,
-}
-
 #[cfg(not(feature = "std"))]
 #[derive(Clone)]
 pub struct GameContext {

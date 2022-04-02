@@ -11,17 +11,19 @@ pub use common::*;
 use sp_std::vec;
 use sp_std::vec::Vec;
 
-pub fn create_game(params: InitGameState) -> (GameContext, Randomizer) {
+pub fn create_game(
+    players: [Vec<Player>; 2],
+    max_turns: u64,
+    max_actions_per_turn: u8,
+    seed: Vec<u8>,
+) -> (GameContext, Randomizer) {
     let ctx = GameContext {
-        players_initial: params.players,
-        max_turns: params.max_turns,
-        max_actions_per_turn: params.max_actions_per_turn,
+        players_initial: players,
+        max_turns,
+        max_actions_per_turn,
         turns: vec![],
     };
-    let randomizer = Randomizer {
-        seed: params.seed,
-        index: 0,
-    };
+    let randomizer = Randomizer { seed, index: 0 };
     (ctx, randomizer)
 }
 
