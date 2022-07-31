@@ -13,6 +13,7 @@ use sp_std::vec::Vec;
 
 pub fn create_game(params: InitGameState) -> (GameContext, Randomizer) {
     let ctx = GameContext {
+        auto_battler_core_version: params.auto_battler_core_version,
         players_initial: params.players,
         max_turns: params.max_turns,
         max_actions_per_turn: params.max_actions_per_turn,

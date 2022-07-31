@@ -2,6 +2,11 @@ use crate::action::cases::common::ActionType;
 use sp_std::vec::Vec;
 
 #[derive(Clone, Copy, Eq, PartialEq, Debug)]
+pub enum AutoBattlerCoreVersion {
+    V1,
+}
+
+#[derive(Clone, Copy, Eq, PartialEq, Debug)]
 pub enum Winner {
     Nobody,
     Command(u8),
@@ -41,6 +46,7 @@ pub struct Player {
 
 #[derive(Clone)]
 pub struct InitGameState {
+    pub auto_battler_core_version: AutoBattlerCoreVersion,
     pub players: [Vec<Player>; 2],
     pub max_turns: u64,
     pub max_actions_per_turn: u8,
@@ -48,6 +54,7 @@ pub struct InitGameState {
 }
 
 pub struct GameContext {
+    pub auto_battler_core_version: AutoBattlerCoreVersion,
     pub max_turns: u64,
     pub max_actions_per_turn: u8,
     pub players_initial: [Vec<Player>; 2],
