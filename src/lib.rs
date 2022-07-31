@@ -60,17 +60,18 @@ fn roll_first_turn(randomizer: &mut Randomizer, players: u8) -> u8 {
 pub fn process_full_game(ctx: &mut GameContext, randomizer: &mut Randomizer) -> GameResult {
     for _ in 0..ctx.max_turns {
         ctx.turns.push(process_turn(ctx, randomizer));
-        if let Some(winner) = ctx.turns.last().unwrap().winner {
+        let winner = ctx.turns.last().unwrap().winner;
+        if winner.command.is_some() {
             return GameResult {
-                winner: Some(winner),
+                winner,
                 is_timeout: false,
             };
         }
     }
     // Timeout
     let winner = match get_command_with_more_total_hp(ctx) {
-        None => Some(Winner::Nobody),
-        Some(x) => Some(Winner::Command(x)),
+        None => Winner { command: None },
+        Some(x) => Winner { command: Some(x) },
     };
 
     return GameResult {
@@ -130,7 +131,7 @@ fn init_turn(ctx: &GameContext, randomizer: &mut Randomizer) -> TurnState {
         command_turn,
         actions: vec![],
         is_overflow: false,
-        winner: None,
+        winner: Winner { command: None },
     }
 }
 
@@ -164,9 +165,8 @@ pub fn process_turn(ctx: &GameContext, randomizer: &mut Randomizer) -> TurnState
         );
 
         new_turn.actions.append(&mut actions);
-
-        if a_winner.is_some() {
-            new_turn.winner = a_winner.clone();
+        new_turn.winner = a_winner.clone();
+        if a_winner.command.is_some() {
             return new_turn;
         }
 

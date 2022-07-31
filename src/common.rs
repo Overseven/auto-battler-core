@@ -7,9 +7,8 @@ pub enum AutoBattlerCoreVersion {
 }
 
 #[derive(Clone, Copy, Eq, PartialEq, Debug)]
-pub enum Winner {
-    Nobody,
-    Command(u8),
+pub struct Winner {
+    pub command: Option<u8>,
 }
 
 #[derive(Clone, Copy)]
@@ -27,7 +26,6 @@ pub struct Characteristics {
 #[derive(Clone, Copy)]
 pub struct Skill {
     pub action_type: ActionType,
-    // pub action: Rc<dyn Action>, // like that?
     pub level: u16,
 }
 
@@ -63,7 +61,7 @@ pub struct GameContext {
 
 #[derive(Clone)]
 pub struct GameResult {
-    pub winner: Option<Winner>,
+    pub winner: Winner,
     pub is_timeout: bool,
 }
 
@@ -80,5 +78,5 @@ pub struct TurnState {
     pub player_turn: [u8; 2],
     pub actions: Vec<ActionState>,
     pub is_overflow: bool,
-    pub winner: Option<Winner>,
+    pub winner: Winner,
 }

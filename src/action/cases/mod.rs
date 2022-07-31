@@ -30,7 +30,7 @@ pub fn process_action(
     ctx: &GameContext,
     current_turn: &TurnState,
     randomizer: &mut Randomizer,
-) -> (Vec<ActionState>, Option<Winner>) {
+) -> (Vec<ActionState>, Winner) {
     let actions = match action_type {
         PunchAction => Punch::process(command_id, player_id, ctx, current_turn, randomizer),
         HealAction => Heal::process(command_id, player_id, ctx, current_turn, randomizer),
@@ -40,7 +40,7 @@ pub fn process_action(
     (actions, winner)
 }
 
-pub fn check_winner(last_actions: &Vec<ActionState>) -> Option<Winner> {
+pub fn check_winner(last_actions: &Vec<ActionState>) -> Winner {
     if let Some(last_action) = last_actions.last() {
         let commands_health: Vec<u64> = last_action
             .players
@@ -60,8 +60,10 @@ pub fn check_winner(last_actions: &Vec<ActionState>) -> Option<Winner> {
             .collect();
 
         if non_zero.len() == 1 {
-            return Some(Winner::Command(non_zero.first().unwrap().0 as u8));
+            return Winner {
+                command: Some(non_zero.first().unwrap().0 as u8),
+            };
         }
     }
-    None
+    Winner { command: None }
 }
