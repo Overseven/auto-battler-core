@@ -1,7 +1,8 @@
 use crate::{ActionState, GameContext, Player, Skill, TurnState};
+use frame_support::pallet_prelude::*;
 use sp_std::vec::Vec;
 
-#[derive(Copy, Clone, Eq, PartialEq)]
+#[derive(Copy, Clone, Eq, PartialEq, Decode, Encode, RuntimeDebug, TypeInfo)]
 pub enum ActionType {
     PunchAction = 1,
     HealAction = 2,

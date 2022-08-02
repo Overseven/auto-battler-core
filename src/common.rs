@@ -1,17 +1,19 @@
 use crate::action::cases::common::ActionType;
+use frame_support::pallet_prelude::*;
+use scale_info::TypeInfo;
 use sp_std::vec::Vec;
 
-#[derive(Clone, Copy, Eq, PartialEq, Debug)]
+#[derive(Clone, Copy, Eq, PartialEq, Decode, Encode, RuntimeDebug, TypeInfo)]
 pub enum AutoBattlerCoreVersion {
     V1,
 }
 
-#[derive(Clone, Copy, Eq, PartialEq, Debug)]
+#[derive(Clone, Copy, Eq, PartialEq, Decode, Encode, RuntimeDebug, TypeInfo)]
 pub struct Winner {
     pub command: Option<u8>,
 }
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Decode, Encode, RuntimeDebug, TypeInfo)]
 pub struct Characteristics {
     pub health: u64,
     pub strength: u64,
@@ -23,19 +25,19 @@ pub struct Characteristics {
     pub survivability: u64,
 }
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Decode, Encode, RuntimeDebug, TypeInfo)]
 pub struct Skill {
     pub action_type: ActionType,
     pub level: u16,
 }
 
-#[derive(Clone)]
+#[derive(Clone, Decode, Encode, RuntimeDebug, TypeInfo)]
 pub struct Nft {
     pub characteristics: Characteristics,
     pub skills: Vec<Skill>,
 }
 
-#[derive(Clone)]
+#[derive(Clone, Decode, Encode, RuntimeDebug, TypeInfo)]
 pub struct Player {
     pub command: u8,
     pub player_id: u8,
@@ -51,6 +53,7 @@ pub struct InitGameState {
     pub seed: Vec<u8>,
 }
 
+#[derive(Decode, Encode, RuntimeDebug, TypeInfo)]
 pub struct GameContext {
     pub auto_battler_core_version: AutoBattlerCoreVersion,
     pub max_turns: u64,
@@ -59,20 +62,20 @@ pub struct GameContext {
     pub turns: Vec<TurnState>,
 }
 
-#[derive(Clone)]
+#[derive(Decode, Encode, PartialEq, Eq, RuntimeDebug, TypeInfo, Clone)]
 pub struct GameResult {
     pub winner: Winner,
     pub is_timeout: bool,
 }
 
-#[derive(Clone)]
+#[derive(Clone, Decode, Encode, RuntimeDebug, TypeInfo)]
 pub struct ActionState {
     pub players: [Vec<Player>; 2],
     pub action: ActionType,
     pub origin: (u8, u8), // command_id, player_id
 }
 
-#[derive(Clone)]
+#[derive(Clone, Decode, Encode, RuntimeDebug, TypeInfo)]
 pub struct TurnState {
     pub command_turn: u8,
     pub player_turn: [u8; 2],

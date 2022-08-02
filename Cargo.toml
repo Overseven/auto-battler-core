@@ -1,6 +1,6 @@
 [package]
 name = "auto-battler-core"
-version = "0.1.5"
+version = "0.1.6"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -9,5 +9,31 @@ edition = "2021"
 [dependencies.sp-std]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
-tag = 'monthly-2021-12'
+tag = 'monthly-2022-08'
 version = '4.0.0-dev'
+
+[dependencies.scale-info]
+default-features = false
+features = ['derive']
+version = '1.0'
+
+[dependencies.frame-support]
+default-features = false
+git = 'https://github.com/paritytech/substrate.git'
+tag = 'monthly-2022-08'
+version = '4.0.0-dev'
+
+[dependencies.codec]
+features = ['derive']
+default-features = false
+package = 'parity-scale-codec'
+version = '2.0.0'
+
+[features]
+default = ['std']
+std = [
+    'codec/std',
+    'scale-info/std',
+    'frame-support/std',
+    'sp-std/std',
+]
