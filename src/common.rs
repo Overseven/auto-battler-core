@@ -1,7 +1,7 @@
 use crate::action::cases::common::ActionType;
 use frame_support::pallet_prelude::*;
-use frame_support::{Deserialize, Serialize};
 use scale_info::TypeInfo;
+use serde::{Deserialize, Serialize};
 use sp_std::vec::Vec;
 
 #[cfg_attr(feature = "std", derive(Serialize, Deserialize))]
