@@ -1,3 +1,5 @@
+#![cfg_attr(not(feature = "std"), no_std)]
+
 use crate::action::cases::common::ActionType;
 use frame_support::pallet_prelude::*;
 use scale_info::TypeInfo;

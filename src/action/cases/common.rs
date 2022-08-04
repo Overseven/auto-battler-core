@@ -1,3 +1,5 @@
+#![cfg_attr(not(feature = "std"), no_std)]
+
 use crate::{ActionState, GameContext, Player, Skill, TurnState};
 use frame_support::pallet_prelude::*;
 use serde::{Deserialize, Serialize};
