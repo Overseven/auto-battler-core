@@ -2,6 +2,7 @@
 
 use crate::{ActionState, GameContext, Player, Skill, TurnState};
 use frame_support::pallet_prelude::*;
+#[cfg(feature = "std")]
 use serde::{Deserialize, Serialize};
 use sp_std::vec::Vec;
 

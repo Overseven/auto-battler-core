@@ -3,6 +3,7 @@
 use crate::action::cases::common::ActionType;
 use frame_support::pallet_prelude::*;
 use scale_info::TypeInfo;
+#[cfg(feature = "std")]
 use serde::{Deserialize, Serialize};
 use sp_std::vec::Vec;
 
