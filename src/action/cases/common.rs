@@ -1,7 +1,9 @@
 use crate::{ActionState, GameContext, Player, Skill, TurnState};
 use frame_support::pallet_prelude::*;
+use frame_support::{Deserialize, Serialize};
 use sp_std::vec::Vec;
 
+#[cfg_attr(feature = "std", derive(Serialize, Deserialize))]
 #[derive(Copy, Clone, Eq, PartialEq, Decode, Encode, RuntimeDebug, TypeInfo)]
 pub enum ActionType {
     PunchAction = 1,

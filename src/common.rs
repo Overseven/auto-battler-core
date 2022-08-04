@@ -1,18 +1,22 @@
 use crate::action::cases::common::ActionType;
 use frame_support::pallet_prelude::*;
+use frame_support::{Deserialize, Serialize};
 use scale_info::TypeInfo;
 use sp_std::vec::Vec;
 
+#[cfg_attr(feature = "std", derive(Serialize, Deserialize))]
 #[derive(Clone, Copy, Eq, PartialEq, Decode, Encode, RuntimeDebug, TypeInfo)]
 pub enum AutoBattlerCoreVersion {
     V1,
 }
 
+#[cfg_attr(feature = "std", derive(Serialize, Deserialize))]
 #[derive(Clone, Copy, Eq, PartialEq, Decode, Encode, RuntimeDebug, TypeInfo)]
 pub struct Winner {
     pub command: Option<u8>,
 }
 
+#[cfg_attr(feature = "std", derive(Serialize, Deserialize))]
 #[derive(Clone, Copy, Decode, Encode, RuntimeDebug, TypeInfo)]
 pub struct Characteristics {
     pub health: u64,
@@ -25,18 +29,21 @@ pub struct Characteristics {
     pub survivability: u64,
 }
 
+#[cfg_attr(feature = "std", derive(Serialize, Deserialize))]
 #[derive(Clone, Copy, Decode, Encode, RuntimeDebug, TypeInfo)]
 pub struct Skill {
     pub action_type: ActionType,
     pub level: u16,
 }
 
+#[cfg_attr(feature = "std", derive(Serialize, Deserialize))]
 #[derive(Clone, Decode, Encode, RuntimeDebug, TypeInfo)]
 pub struct Nft {
     pub characteristics: Characteristics,
     pub skills: Vec<Skill>,
 }
 
+#[cfg_attr(feature = "std", derive(Serialize, Deserialize))]
 #[derive(Clone, Decode, Encode, RuntimeDebug, TypeInfo)]
 pub struct Player {
     pub command: u8,
@@ -53,6 +60,7 @@ pub struct InitGameState {
     pub seed: Vec<u8>,
 }
 
+#[cfg_attr(feature = "std", derive(Serialize, Deserialize))]
 #[derive(Decode, Encode, RuntimeDebug, TypeInfo)]
 pub struct GameContext {
     pub auto_battler_core_version: AutoBattlerCoreVersion,
@@ -62,12 +70,14 @@ pub struct GameContext {
     pub turns: Vec<TurnState>,
 }
 
+#[cfg_attr(feature = "std", derive(Serialize, Deserialize))]
 #[derive(Decode, Encode, PartialEq, Eq, RuntimeDebug, TypeInfo, Clone)]
 pub struct GameResult {
     pub winner: Winner,
     pub is_timeout: bool,
 }
 
+#[cfg_attr(feature = "std", derive(Serialize, Deserialize))]
 #[derive(Clone, Decode, Encode, RuntimeDebug, TypeInfo)]
 pub struct ActionState {
     pub players: [Vec<Player>; 2],
@@ -75,6 +85,7 @@ pub struct ActionState {
     pub origin: (u8, u8), // command_id, player_id
 }
 
+#[cfg_attr(feature = "std", derive(Serialize, Deserialize))]
 #[derive(Clone, Decode, Encode, RuntimeDebug, TypeInfo)]
 pub struct TurnState {
     pub command_turn: u8,
