@@ -1,4 +1,5 @@
-#[cfg(test)]
+#![cfg(test)]
+
 use crate::{create_game, process_full_game, Characteristics, InitGameState, Nft, Player, Winner};
 
 #[cfg(test)]
@@ -36,7 +37,10 @@ fn full_game_process() {
                         accuracy: 0,
                         survivability: 0,
                     },
-                    skills: vec![],
+                    skills: vec![Skill {
+                        action_type: ActionType::HealAction,
+                        level: 5,
+                    }],
                 },
             }],
             vec![Player {

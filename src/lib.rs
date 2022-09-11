@@ -59,8 +59,9 @@ fn roll_first_turn(randomizer: &mut Randomizer, players: u8) -> u8 {
 
 pub fn process_full_game(ctx: &mut GameContext, randomizer: &mut Randomizer) -> GameResult {
     for _ in 0..ctx.max_turns {
-        ctx.turns.push(process_turn(ctx, randomizer));
-        let winner = ctx.turns.last().unwrap().winner;
+        let new_turn = process_turn(ctx, randomizer);
+        let winner = new_turn.winner;
+        ctx.turns.push(new_turn);
         if winner.command.is_some() {
             return GameResult {
                 winner,
@@ -83,36 +84,34 @@ pub fn process_full_game(ctx: &mut GameContext, randomizer: &mut Randomizer) -> 
 fn roll_action(
     command_id: u8,
     player_id: u8,
-    mut skills: Vec<Skill>,
+    skills: Vec<Skill>,
     ctx: &GameContext,
     current_turn: &TurnState,
     randomizer: &mut Randomizer,
 ) -> ActionType {
-    while !skills.is_empty() {
-        let random = randomizer.random(skills.len() as u32) as usize;
-        let action = skills[random].action_type;
+    let mut roll_skills = skills;
+    while !roll_skills.is_empty() {
+        let random = randomizer.random(roll_skills.len() as u32) as usize;
+        let action = roll_skills[random].action_type;
         if action_can_be_processed(action, command_id, player_id, &ctx, current_turn) {
             return action;
         } else {
-            skills.remove(random);
+            roll_skills.remove(random);
         }
     }
-    ActionType::PunchAction
+    match roll_skills.first() {
+        Some(skill) => skill.action_type,
+        None => ActionType::PunchAction,
+    }
 }
 
 fn init_turn(ctx: &GameContext, randomizer: &mut Randomizer) -> TurnState {
     let command_turn: u8;
     let mut player_turn = [0, 0];
-    if ctx.turns.is_empty() {
-        command_turn = roll_first_turn(randomizer, 2);
-        for i in 0..ctx.players_initial.len() {
-            player_turn[i] = roll_first_turn(randomizer, ctx.players_initial[i].len() as u8);
-        }
-    } else {
-        let prev_turn = ctx.turns.last().unwrap();
-        command_turn = (prev_turn.command_turn + 1) % ctx.players_initial.len() as u8;
+    if let Some(last_turn) = ctx.turns.last() {
+        command_turn = (last_turn.command_turn + 1) % ctx.players_initial.len() as u8;
         let mut next_player_turn = player_turn[command_turn as usize];
-        if let Some(action) = prev_turn.actions.last() {
+        if let Some(action) = last_turn.actions.last() {
             let mut it = action.players[command_turn as usize].iter().cycle();
             for _ in 0..action.players[command_turn as usize].len() + 1 {
                 if let Some(player) = it.next() {
@@ -123,6 +122,11 @@ fn init_turn(ctx: &GameContext, randomizer: &mut Randomizer) -> TurnState {
                 }
             }
             player_turn[command_turn as usize] = next_player_turn;
+        }
+    } else {
+        command_turn = roll_first_turn(randomizer, 2);
+        for i in 0..ctx.players_initial.len() {
+            player_turn[i] = roll_first_turn(randomizer, ctx.players_initial[i].len() as u8);
         }
     }
 

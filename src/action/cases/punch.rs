@@ -33,7 +33,8 @@ impl Action for Punch {
             origin: (command_id, player_id),
         };
         {
-            let health = &mut action.players[who_get_hit.0 as usize][who_get_hit.1 as usize]
+            let health: &mut u64 = &mut action.players[who_get_hit.0 as usize]
+                [who_get_hit.1 as usize]
                 .nft
                 .characteristics
                 .health;

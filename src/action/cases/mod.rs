@@ -59,9 +59,11 @@ pub fn check_winner(last_actions: &Vec<ActionState>) -> Winner {
             .filter(|(_, command)| *command != 0)
             .collect();
 
-        if non_zero.len() == 1 {
-            return Winner {
-                command: Some(non_zero.first().unwrap().0 as u8),
+        if let Some(x) = non_zero.first() {
+            if non_zero.len() == 1 {
+                return Winner {
+                    command: Some(x.0 as u8),
+                };
             };
         }
     }
